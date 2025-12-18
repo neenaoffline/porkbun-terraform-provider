@@ -4,8 +4,8 @@
 
 I created this provider on December 18, 2025 because none of the existing Porkbun Terraform providers were working for me. Rather than debugging someone else's code, I decided to generate a fresh implementation from scratch.
 
-[![Tests](https://github.com/neena/terraform-provider-porkbun/actions/workflows/test.yml/badge.svg)](https://github.com/neena/terraform-provider-porkbun/actions/workflows/test.yml)
-[![Release](https://github.com/neena/terraform-provider-porkbun/actions/workflows/release.yml/badge.svg)](https://github.com/neena/terraform-provider-porkbun/actions/workflows/release.yml)
+[![Tests](https://github.com/neenaoffline/porkbun-terraform-provider/actions/workflows/test.yml/badge.svg)](https://github.com/neenaoffline/porkbun-terraform-provider/actions/workflows/test.yml)
+[![Release](https://github.com/neenaoffline/porkbun-terraform-provider/actions/workflows/release.yml/badge.svg)](https://github.com/neenaoffline/porkbun-terraform-provider/actions/workflows/release.yml)
 
 This is a Terraform/OpenTofu provider for managing DNS records on [Porkbun](https://porkbun.com).
 
