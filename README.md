@@ -1,6 +1,6 @@
 # Terraform Provider for Porkbun DNS
 
-> **Note:** This project was generated entirely by AI using [pi-coder](https://github.com/mariozechner/pi-coder) and Claude Opus 4. It has been reviewed by a human.
+> **Note:** This project was generated entirely by AI using [pi-coder](https://github.com/mariozechner/pi-coder) and Claude Opus 4.5. It has been reviewed by a human.
 
 I created this provider on December 18, 2025 because none of the existing Porkbun Terraform providers were working for me. Rather than debugging someone else's code, I decided to generate a fresh implementation from scratch.
 
