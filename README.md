@@ -1,5 +1,7 @@
 # Terraform Provider for Porkbun DNS
 
+> **Note:** This project was generated entirely by AI using [pi-coder](https://github.com/mariozechner/pi-coder) and Claude Opus 4. It has been reviewed by a human.
+
 [![Tests](https://github.com/neena/terraform-provider-porkbun/actions/workflows/test.yml/badge.svg)](https://github.com/neena/terraform-provider-porkbun/actions/workflows/test.yml)
 [![Release](https://github.com/neena/terraform-provider-porkbun/actions/workflows/release.yml/badge.svg)](https://github.com/neena/terraform-provider-porkbun/actions/workflows/release.yml)
 
