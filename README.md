@@ -1,5 +1,8 @@
 # Terraform Provider for Porkbun DNS
 
+[![Tests](https://github.com/neena/terraform-provider-porkbun/actions/workflows/test.yml/badge.svg)](https://github.com/neena/terraform-provider-porkbun/actions/workflows/test.yml)
+[![Release](https://github.com/neena/terraform-provider-porkbun/actions/workflows/release.yml/badge.svg)](https://github.com/neena/terraform-provider-porkbun/actions/workflows/release.yml)
+
 This is a Terraform/OpenTofu provider for managing DNS records on [Porkbun](https://porkbun.com).
 
 ## Requirements
