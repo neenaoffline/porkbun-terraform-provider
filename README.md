@@ -2,10 +2,10 @@
 
 > **Note:** This project was generated entirely by AI using [pi-coder](https://github.com/mariozechner/pi-coder) and Claude Opus 4.5. It has been reviewed by a human.
 
-I created this provider on December 18, 2025 because none of the existing Porkbun Terraform providers were working for me. Rather than debugging someone else's code, I decided to generate a fresh implementation from scratch.
+I created this provider on December 18, 2025 because none of the existing Porkbun Terraform providers were working for me. The Porkbun API has aggressive rate limiting that returns 503 errors, which likely caused issues with other implementations. This provider handles rate limiting with automatic retries and exponential backoff.
 
-[![Tests](https://github.com/neenaoffline/porkbun-terraform-provider/actions/workflows/test.yml/badge.svg)](https://github.com/neenaoffline/porkbun-terraform-provider/actions/workflows/test.yml)
-[![Release](https://github.com/neenaoffline/porkbun-terraform-provider/actions/workflows/release.yml/badge.svg)](https://github.com/neenaoffline/porkbun-terraform-provider/actions/workflows/release.yml)
+[![Tests](https://github.com/neenaoffline/terraform-provider-porkbun/actions/workflows/test.yml/badge.svg)](https://github.com/neenaoffline/terraform-provider-porkbun/actions/workflows/test.yml)
+[![Release](https://github.com/neenaoffline/terraform-provider-porkbun/actions/workflows/release.yml/badge.svg)](https://github.com/neenaoffline/terraform-provider-porkbun/actions/workflows/release.yml)
 
 This is a Terraform/OpenTofu provider for managing DNS records on [Porkbun](https://porkbun.com).
 
@@ -31,25 +31,25 @@ For more details, see [Porkbun's API documentation](https://porkbun.com/api/json
 
 ### From GitHub Releases (Recommended)
 
-1. Download the latest release for your platform from [GitHub Releases](https://github.com/neenaoffline/porkbun-terraform-provider/releases)
+1. Download the latest release for your platform from [GitHub Releases](https://github.com/neenaoffline/terraform-provider-porkbun/releases)
 
 2. Extract and install:
    ```bash
    # Linux (amd64)
    unzip terraform-provider-porkbun_*_linux_amd64.zip
-   mkdir -p ~/.terraform.d/plugins/github.com/neenaoffline/porkbun/0.1.0/linux_amd64/
-   mv terraform-provider-porkbun_* ~/.terraform.d/plugins/github.com/neenaoffline/porkbun/0.1.0/linux_amd64/terraform-provider-porkbun
+   mkdir -p ~/.terraform.d/plugins/registry.terraform.io/neenaoffline/porkbun/0.2.1/linux_amd64/
+   mv terraform-provider-porkbun_* ~/.terraform.d/plugins/registry.terraform.io/neenaoffline/porkbun/0.2.1/linux_amd64/terraform-provider-porkbun
    
    # macOS (arm64/Apple Silicon)
    unzip terraform-provider-porkbun_*_darwin_arm64.zip
-   mkdir -p ~/.terraform.d/plugins/github.com/neenaoffline/porkbun/0.1.0/darwin_arm64/
-   mv terraform-provider-porkbun_* ~/.terraform.d/plugins/github.com/neenaoffline/porkbun/0.1.0/darwin_arm64/terraform-provider-porkbun
+   mkdir -p ~/.terraform.d/plugins/registry.terraform.io/neenaoffline/porkbun/0.2.1/darwin_arm64/
+   mv terraform-provider-porkbun_* ~/.terraform.d/plugins/registry.terraform.io/neenaoffline/porkbun/0.2.1/darwin_arm64/terraform-provider-porkbun
    ```
 
 ### Building from Source
 
 ```bash
-git clone https://github.com/neenaoffline/porkbun-terraform-provider.git
+git clone https://github.com/neenaoffline/terraform-provider-porkbun.git
 cd porkbun-terraform-provider
 make install
 ```
@@ -62,8 +62,8 @@ make install
 terraform {
   required_providers {
     porkbun = {
-      source  = "github.com/neenaoffline/porkbun"
-      version = "0.1.0"
+      source  = "neenaoffline/porkbun"
+      version = "~> 0.2"
     }
   }
 }
