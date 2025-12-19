@@ -60,6 +60,28 @@ resource "porkbun_dns_record" "blog" {
   ttl     = "600"
 }
 
+# Custom name servers for the domain
+# Note: Only use this if you want to use custom/external name servers
+# By default, Porkbun domains use Porkbun's name servers
+resource "porkbun_domain_nameservers" "custom_ns" {
+  domain = var.domain
+  nameservers = [
+    "ns1.example.net",
+    "ns2.example.net",
+  ]
+}
+
+# To use Porkbun's default name servers, you can explicitly set them:
+# resource "porkbun_domain_nameservers" "porkbun_ns" {
+#   domain = var.domain
+#   nameservers = [
+#     "curitiba.ns.porkbun.com",
+#     "fortaleza.ns.porkbun.com",
+#     "maceio.ns.porkbun.com",
+#     "salvador.ns.porkbun.com",
+#   ]
+# }
+
 # Output the created record IDs
 output "root_record_id" {
   value = porkbun_dns_record.root_a.id
@@ -67,4 +89,8 @@ output "root_record_id" {
 
 output "www_record_id" {
   value = porkbun_dns_record.www.id
+}
+
+output "nameservers" {
+  value = porkbun_domain_nameservers.custom_ns.nameservers
 }

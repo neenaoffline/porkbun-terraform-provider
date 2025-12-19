@@ -119,6 +119,7 @@ func (p *PorkbunProvider) Configure(ctx context.Context, req provider.ConfigureR
 func (p *PorkbunProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
 		NewDNSRecordResource,
+		NewDomainNameServersResource,
 	}
 }
 

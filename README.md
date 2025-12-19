@@ -37,13 +37,13 @@ For more details, see [Porkbun's API documentation](https://porkbun.com/api/json
    ```bash
    # Linux (amd64)
    unzip terraform-provider-porkbun_*_linux_amd64.zip
-   mkdir -p ~/.terraform.d/plugins/registry.terraform.io/neenaoffline/porkbun/0.2.1/linux_amd64/
-   mv terraform-provider-porkbun_* ~/.terraform.d/plugins/registry.terraform.io/neenaoffline/porkbun/0.2.1/linux_amd64/terraform-provider-porkbun
+   mkdir -p ~/.terraform.d/plugins/registry.terraform.io/neenaoffline/porkbun/0.3.0/linux_amd64/
+   mv terraform-provider-porkbun_* ~/.terraform.d/plugins/registry.terraform.io/neenaoffline/porkbun/0.3.0/linux_amd64/terraform-provider-porkbun
    
    # macOS (arm64/Apple Silicon)
    unzip terraform-provider-porkbun_*_darwin_arm64.zip
-   mkdir -p ~/.terraform.d/plugins/registry.terraform.io/neenaoffline/porkbun/0.2.1/darwin_arm64/
-   mv terraform-provider-porkbun_* ~/.terraform.d/plugins/registry.terraform.io/neenaoffline/porkbun/0.2.1/darwin_arm64/terraform-provider-porkbun
+   mkdir -p ~/.terraform.d/plugins/registry.terraform.io/neenaoffline/porkbun/0.3.0/darwin_arm64/
+   mv terraform-provider-porkbun_* ~/.terraform.d/plugins/registry.terraform.io/neenaoffline/porkbun/0.3.0/darwin_arm64/terraform-provider-porkbun
    ```
 
 ### Building from Source
@@ -151,12 +151,42 @@ output "record_content" {
 }
 ```
 
+### Managing Domain Name Servers
+
+```hcl
+# Use custom name servers
+resource "porkbun_domain_nameservers" "custom" {
+  domain = "example.com"
+  nameservers = [
+    "ns1.example.net",
+    "ns2.example.net",
+  ]
+}
+
+# Use Porkbun's default name servers
+resource "porkbun_domain_nameservers" "porkbun" {
+  domain = "example.com"
+  nameservers = [
+    "curitiba.ns.porkbun.com",
+    "fortaleza.ns.porkbun.com",
+    "maceio.ns.porkbun.com",
+    "salvador.ns.porkbun.com",
+  ]
+}
+```
+
 ### Importing Existing Records
 
 You can import existing DNS records using the format `domain/record_id`:
 
 ```bash
 terraform import porkbun_dns_record.www example.com/123456789
+```
+
+You can import existing domain name server configuration:
+
+```bash
+terraform import porkbun_domain_nameservers.custom example.com
 ```
 
 ## Resource: porkbun_dns_record
@@ -191,6 +221,33 @@ terraform import porkbun_dns_record.www example.com/123456789
 ### Attribute Reference
 
 All attributes from the resource are available as computed values.
+
+## Resource: porkbun_domain_nameservers
+
+Manages the name servers for a domain. 
+
+**Note:** When this resource is destroyed, the domain's name servers will be reset to Porkbun's default name servers.
+
+### Argument Reference
+
+| Attribute     | Type         | Required | Description |
+|---------------|--------------|----------|-------------|
+| `domain`      | string       | Yes      | The domain name (e.g., `example.com`) |
+| `nameservers` | list(string) | Yes      | List of name server hostnames |
+
+### Attribute Reference
+
+| Attribute | Type   | Description |
+|-----------|--------|-------------|
+| `id`      | string | The domain name (used as identifier) |
+
+### Porkbun Default Name Servers
+
+If you want to use Porkbun's name servers:
+- `curitiba.ns.porkbun.com`
+- `fortaleza.ns.porkbun.com`
+- `maceio.ns.porkbun.com`
+- `salvador.ns.porkbun.com`
 
 ## Testing
 

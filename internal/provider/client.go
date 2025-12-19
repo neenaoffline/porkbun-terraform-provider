@@ -276,3 +276,66 @@ func (c *Client) DeleteDNSRecord(domain, recordID string) error {
 
 	return nil
 }
+
+// UpdateNameServersRequest is the request to update domain name servers
+type UpdateNameServersRequest struct {
+	authRequest
+	NS []string `json:"ns"`
+}
+
+// GetNameServersResponse is the response from retrieving name servers
+type GetNameServersResponse struct {
+	APIResponse
+	NS []string `json:"ns"`
+}
+
+// UpdateNameServers updates the name servers for a domain
+func (c *Client) UpdateNameServers(domain string, nameservers []string) error {
+	req := UpdateNameServersRequest{
+		authRequest: authRequest{
+			SecretAPIKey: c.secretAPIKey,
+			APIKey:       c.apiKey,
+		},
+		NS: nameservers,
+	}
+
+	respBody, err := c.doRequest("POST", "/domain/updateNs/"+domain, req)
+	if err != nil {
+		return err
+	}
+
+	var resp APIResponse
+	if err := json.Unmarshal(respBody, &resp); err != nil {
+		return fmt.Errorf("failed to parse response: %w", err)
+	}
+
+	if resp.Status != "SUCCESS" {
+		return fmt.Errorf("failed to update name servers: %s", resp.Message)
+	}
+
+	return nil
+}
+
+// GetNameServers retrieves the name servers for a domain
+func (c *Client) GetNameServers(domain string) ([]string, error) {
+	req := authRequest{
+		SecretAPIKey: c.secretAPIKey,
+		APIKey:       c.apiKey,
+	}
+
+	respBody, err := c.doRequest("POST", "/domain/getNs/"+domain, req)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp GetNameServersResponse
+	if err := json.Unmarshal(respBody, &resp); err != nil {
+		return nil, fmt.Errorf("failed to parse response: %w", err)
+	}
+
+	if resp.Status != "SUCCESS" {
+		return nil, fmt.Errorf("failed to get name servers: %s", resp.Message)
+	}
+
+	return resp.NS, nil
+}
