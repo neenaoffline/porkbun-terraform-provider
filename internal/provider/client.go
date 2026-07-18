@@ -72,7 +72,7 @@ type CreateDNSRecordRequest struct {
 // CreateDNSRecordResponse is the response from creating a DNS record
 type CreateDNSRecordResponse struct {
 	APIResponse
-	ID int64 `json:"id"`
+	ID json.RawMessage `json:"id"`
 }
 
 // EditDNSRecordRequest is the request to edit a DNS record
@@ -200,7 +200,15 @@ func (c *Client) CreateDNSRecord(domain string, record CreateDNSRecordRequest) (
 		return "", fmt.Errorf("failed to create DNS record: %s", resp.Message)
 	}
 
-	return fmt.Sprintf("%d", resp.ID), nil
+	var recordID string
+	if err := json.Unmarshal(resp.ID, &recordID); err != nil {
+		return "", fmt.Errorf("failed to parse DNS record ID: %w", err)
+	}
+	if recordID == "" {
+		return "", fmt.Errorf("failed to create DNS record: empty record ID")
+	}
+
+	return recordID, nil
 }
 
 // GetDNSRecord retrieves a specific DNS record by ID
